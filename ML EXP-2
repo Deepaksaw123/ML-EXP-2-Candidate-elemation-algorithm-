@@ -1,0 +1,41 @@
+import csv
+
+# STEP 1: Read CSV file
+with open('weather.csv', 'r') as file:
+    reader = csv.reader(file)
+    data = list(reader)
+
+header = data[0]
+examples = data[1:]
+
+# Initialize S and G
+S = []
+G = []
+
+# Process each example
+for row in examples:
+    attributes = row[:-1]
+    label = row[-1]
+
+    print("After example:", attributes)
+
+    if label.lower() == "yes":
+        if not S:
+            S = attributes.copy()
+        else:
+            for i in range(len(S)):
+                if S[i] != attributes[i]:
+                    S[i] = '?'
+    else:
+        S = []
+        G = []
+
+    print("S =", S)
+    print("G =", G)
+    print()
+
+# Final result
+print("Final Result")
+print("Final Specific Boundary (S):", S)
+print("Final General Boundary (G):", G)
+
